@@ -79,6 +79,7 @@ svg.in .ln{stroke-dashoffset:0}
 .certs span{color:var(--mute)}
 .big{font:800 clamp(2.2rem,6vw,4.4rem)/1 Syne,sans-serif;letter-spacing:-.025em;max-width:42rem;margin-bottom:2rem}
 footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--mute);font-size:.9rem}
+dialog{background:#0b0914;color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:1.6rem;width:min(30rem,92vw)}dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}dialog p{margin-bottom:1.1rem;font-weight:700}dialog .row{margin-top:0}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.ln{stroke-dashoffset:0}.meter i::after{width:86.5%}}
 @media(max-width:620px){nav div a:nth-child(n+3){display:none}}
 </style>
@@ -96,7 +97,7 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--mute);fo
 <a class="btn main" href="Nirbhay_Singh_Lamba_Resume.pdf" download>Download resume</a>
 <a class="btn" href="https://github.com/NIRBHAYatGIT" target="_blank" rel="noopener">GitHub</a>
 <a class="btn" href="https://linkedin.com/in/nirbhay-lamba-9b5030261" target="_blank" rel="noopener">LinkedIn</a>
-<a class="btn" href="mailto:nirbhay1311@gmail.com">Email me</a>
+<a class="btn em" href="mailto:nirbhay1311@gmail.com">Email me</a>
 </div>
 </header>
 
@@ -165,11 +166,17 @@ footer{padding:2rem 0 3rem;border-top:1px solid var(--line);color:var(--mute);fo
 <section id="contact"><h2>Contact</h2><div class="body">
 <p class="big">Have an internship or a project in mind? Write to me.</p>
 <div class="row" style="margin-top:0">
-<a class="btn main" href="mailto:nirbhay1311@gmail.com">nirbhay1311@gmail.com</a>
+<a class="btn main em" href="mailto:nirbhay1311@gmail.com">nirbhay1311@gmail.com</a>
 <button class="btn" id="copy">Copy email</button>
 <a class="btn" href="https://linkedin.com/in/nirbhay-lamba-9b5030261" target="_blank" rel="noopener">LinkedIn</a>
 <a class="btn" href="https://github.com/NIRBHAYatGIT" target="_blank" rel="noopener">GitHub</a>
 </div></div></section>
+<dialog id="mail" aria-label="Send an email"><p>Email nirbhay1311@gmail.com using:</p><div class="row">
+<a class="btn main" href="https://mail.google.com/mail/?view=cm&fs=1&to=nirbhay1311@gmail.com&su=Hello%20Nirbhay" target="_blank" rel="noopener">Gmail</a>
+<a class="btn" href="https://outlook.live.com/mail/0/deeplink/compose?to=nirbhay1311@gmail.com&subject=Hello%20Nirbhay" target="_blank" rel="noopener">Outlook</a>
+<a class="btn" href="mailto:nirbhay1311@gmail.com">Mail app</a>
+<button class="btn" id="copy2">Copy address</button>
+<button class="btn" id="shut">Close</button></div></dialog>
 <footer>© 2026 Nirbhay Singh Lamba. Greater Noida, India.</footer>
 </div>
 
@@ -202,8 +209,13 @@ $('#again').onclick=reset;
 ti.addEventListener('input',()=>{const v=ti.value;if(!t0)t0=Date.now();draw(v);
 if(v.length>=T.length){const m=(Date.now()-t0)/6e4,ok=[...T].filter((c,i)=>v[i]===c).length;
 tr.textContent=Math.round(T.length/5/m)+' WPM, '+Math.round(ok/T.length*100)+'% accuracy';ti.disabled=true}});
-/* copy email */
-$('#copy').onclick=async e=>{try{await navigator.clipboard.writeText('nirbhay1311@gmail.com');e.target.textContent='Copied'}catch{e.target.textContent='Copy failed, use the email button'}setTimeout(()=>e.target.textContent='Copy email',2200)};
+/* email */
+const dl=$('#mail');
+document.querySelectorAll('.em').forEach(a=>a.addEventListener('click',e=>{if(!matchMedia('(pointer:coarse)').matches&&dl.showModal){e.preventDefault();dl.showModal()}}));
+$('#shut').onclick=()=>dl.close();
+dl.addEventListener('click',e=>{if(e.target===dl)dl.close()});
+const cp=async e=>{const b=e.target,t=b.textContent;try{await navigator.clipboard.writeText('nirbhay1311@gmail.com');b.textContent='Copied'}catch{b.textContent='Copy failed'}setTimeout(()=>b.textContent=t,2200)};
+$('#copy').onclick=cp;$('#copy2').onclick=cp;
 </script>
 </body>
 </html>
